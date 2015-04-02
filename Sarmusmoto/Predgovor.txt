@@ -1,0 +1,7 @@
+Ovo je predgovor o statiènom izgledu stranice.
+Dakle ovo je osnovni izgled stranice sa nekim primjerima.
+U sluèaju da smo veæ trebali imati 10 jela drugih 5(koji nisu) prikazani se nalaze u <article> koji nije prikazan.
+Klikom na jedan od linkova navigacije, npr. "Predjela" vode nas na stranicu predjel (koja je trenutno i prikazana). Izabirom nekog drugog linka stranica bi ostala ista samo bi se jela promjenila.
+Hoverom preko jela bih napravio da se slika promjeni u izgled tog jela.
+Klikom na jelo bi se otvorila ista stranica samo umjesto liste te kategorije jelovnika bi bila prikazana slika jela, opis, sastojci, kalorièna vrijednost i gumb za natrag.
+Doduše to je Js koji æe se tek raditi.
