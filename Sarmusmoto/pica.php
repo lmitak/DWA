@@ -25,7 +25,7 @@ while($row = mysqli_fetch_assoc($res)){
 
     echo <<<EOL
         <li>
-            <a href="#" class="izbor" onmouseover="hoverFunkcija('{$row['image']}')">
+            <a class="izbor" onmouseover="promjeniSliku('{$row['image']}', 'slika')" image='{$row['image']}' onclick="detaljnije('{$row['naziv']}')">
                 <h4>{$row['naziv']}</h4>
                 <p>{$row['kratkiOpis']}</p>
             </a>
@@ -35,12 +35,15 @@ EOL;
 }
 
 
+
+
 echo <<<EOF
                </ul>
             </div>
             <div class="column column-6" id="slika">
 
             </div>
+           <!-- <div id="status">hello</div>-->
         </div>
     </article>
 EOF;

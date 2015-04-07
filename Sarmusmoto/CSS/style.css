@@ -2,6 +2,10 @@
 {
     box-sizing:border-box;
 }
+a
+{
+    cursor: pointer;
+}
 header{
     background-image: url('../Resource/Buffet_New.jpg');
     background-repeat: no-repeat;
@@ -77,6 +81,7 @@ nav li:hover h3
 .jela
 {
     padding-bottom: 30px;
+
 }
 
 .jela ul
@@ -114,19 +119,53 @@ nav li:hover h3
     line-height: 0px;
     font-family: 'Roboto Condensed', sans-serif;
 }
+/*samo za html izgled, kasnije se briše*/
 #glavnaJela
 {
     display: none;
 }
+#jelaContainer
+{
+    transition: 500ms;
+}
+#jelaContainer2
+{
+    transition: 500ms;
+}
+#jelaContainer2 p
+{
+    margin-bottom: 5px;
+    line-height: 14px;
+}
+#jelaContainer2 p:last-child{
+    margin-top: 20px;
+}
+#jelaContainer2 h3
+{
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #808080;
+    font-weight: normal;
+}
+
 
 #slika
 {
-    background-image: url("../Resource/romanbite.jpg");
+    /*background-image: url("../Resource/romanbite.jpg");*/
     background-size: 100% 100%;
     width: 400px;
     height: 400px;
     margin-top: 100px;
     border-radius: 100%;
+    transition: 500ms;
+}
+#slika2
+{
+    background-size: 100% 100%;
+    width: 400px;
+    height: 400px;
+    margin-top: 100px;
+    border-radius: 100%;
+    transition: 500ms;
 }
 
 footer
@@ -162,4 +201,12 @@ footer .row div
     padding: 10px;
     margin-top: 10px;
     height: 150px;
+}
+
+#btn {
+    background-color: transparent;
+    color: gray;
+    cursor: pointer;
+    border: none;
+    font-family: 'Roboto Condensed', sans-serif;
 }

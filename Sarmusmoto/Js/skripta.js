@@ -2,29 +2,23 @@
  * Created by Luka on 6.4.2015..
  */
 
-
-
-function hoverFunkcija(x) {
-    //alert(x);
-    var slika = document.getElementById("slika");
-    var url = "url('Resource/image/" + x + "')";
-    slika.style.backgroundImage = url;
-}
-
-
 document.addEventListener("DOMContentLoaded", function(event) {
     //do work
-    //alert("Hello");
-
-    //var links = document.getElementsByClassName("izbor");
-
-    //podstavljanje slike za prikaz jela na optimalnu visinu
-    var containerSize = document.getElementById("jelaContainer").clientHeight;
-    var vrijednost = containerSize / 5;
-    document.getElementById("slika").style.marginTop = vrijednost + "px";
-
-
+    ustanoviSliku();
+    postaviVisinuSlike();
+    var bro;
 });
+
+function detaljnije(naziv){
+    document.getElementById("jelaContainer").style.opacity = "0";
+    document.getElementById("jelaContainer").style.visibility = "hidden";
+    document.getElementById("slika").style.visibility = "hidden";
+    document.getElementById("slika").style.opacity = "0";
+
+
+    setTimeout(ajax_post(naziv), 500);
+}
+
 
 function ajax_post(naziv){
 // Create our XMLHttpRequest object
@@ -42,12 +36,133 @@ function ajax_post(naziv){
     hr.onreadystatechange = function() {
         if(hr.readyState == 4 && hr.status == 200)
         {
-            var return_data = hr.responseText;
-            document.getElementById("status").innerHTML = "<p>" +return_data+ "</p>";
+            //var return_data = hr.responseText;
+            //document.getElementById("status").innerHTML = "<p>" +return_data+ "</p>";
+            //činimo promjenu
+            //razdvajamo podatke
+            var dataArray = hr.responseText.split("|");
+            //stvaramo container
+            var newDivElement = document.createElement("div");
+            var newImageDiv = document.createElement("div");
+            //sređujemo mu svojstva
+            newDivElement.setAttribute("id", "jelaContainer2");
+            newDivElement.setAttribute("class", "column column-6");
+            newDivElement.style.opacity = "0";
+            newDivElement.style.visibility = "hidden";
+            newImageDiv.setAttribute("id", "slika2");
+            newImageDiv.setAttribute("class", "column column-6");
+            newImageDiv.style.opacity = "0";
+            newImageDiv.style.visibility = "hidden";
+
+            //dodajemo podatke
+            //ovo je back button
+            var button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.setAttribute("id", "btn");
+            button.setAttribute("onclick", "backFuction()")
+            button.innerHTML = "&lt Natrag";
+            newDivElement.appendChild(button);
+
+            var naslov = document.createElement("h2");
+            naslov.innerHTML = dataArray[0];
+            newDivElement.appendChild(naslov);
+
+            var kratkiOpis = document.createElement("h3");
+            kratkiOpis.innerHTML = dataArray[1];
+            newDivElement.appendChild(kratkiOpis);
+
+            var opis = document.createElement("p");
+            opis.innerHTML = dataArray[2];
+            newDivElement.appendChild(opis);
+
+            if((dataArray[3] != null) && (dataArray[3] != "") && (dataArray[3] != " ") && (dataArray[3] != 0)){
+                var sastojci = document.createElement("p");
+                sastojci.innerHTML = "Sastojci: " + dataArray[3];
+                newDivElement.appendChild(sastojci);
+            }
+
+            var kalorije = document.createElement("p");
+            kalorije.innerHTML = "Kcal: " + dataArray[4];
+            newDivElement.appendChild(kalorije);
+
+            var cijena = document.createElement("p");
+            cijena.innerHTML = "Cijena: " + dataArray[5] + "kn";
+            newDivElement.appendChild(cijena);
+
+            //postavljanje dijece na row sa delayem;
+            setTimeout(function () {
+                var article = document.getElementsByClassName("jela");
+                var rows = article[0].childNodes[1];
+                rows.appendChild(newDivElement);
+                rows.appendChild(newImageDiv);
+                promjeniSliku(dataArray[6], "slika2");
+                postaviVisinuSlike();
+
+                document.getElementById("jelaContainer").style.display = "none";
+                document.getElementById("slika").style.display = "none";
+                newDivElement.style.opacity = "1";
+                newDivElement.style.visibility = "visible";
+                newImageDiv.style.opacity = "1";
+                newImageDiv.style.visibility = "visible";
+
+            }, 500);
+
+
         }
     }
     // Send the data to PHP now... and wait for response to update the status div
     hr.send(vars);
     // Actually execute the request
-    document.getElementById("status").innerHTML = "processing...";
+    //document.getElementById("status").innerHTML = "processing...";
+}
+
+
+
+//funkcija briše appendedChild i vraća prikaz izbornika
+function backFuction(){
+    dijeteContainer = document.getElementById("jelaContainer2");
+    dijeteSlika = document.getElementById("slika2");
+    dijeteContainer.style.opacity = "0";
+    dijeteSlika.style.opacity = "0";
+    dijeteContainer.style.visibility = "hidden";
+    dijeteSlika.style.visibility = "hidden";
+
+    setTimeout(function(){
+        dijeteContainer.parentNode.removeChild(dijeteContainer);
+        dijeteSlika.parentNode.removeChild(dijeteSlika);
+
+        document.getElementById("slika").style.display = "inline";
+        document.getElementById("jelaContainer").style.display = "inline";
+        ustanoviSliku();
+        setTimeout(function() {
+            document.getElementById("jelaContainer").style.opacity = "1";
+            document.getElementById("jelaContainer").style.visibility = "visible";
+            document.getElementById("slika").style.visibility = "visible";
+            document.getElementById("slika").style.opacity = "1";
+        }, 500);
+
+
+    }, 1);
+
+}
+
+//podstavljanje slike za prikaz jela na optimalnu visinu
+function postaviVisinuSlike(){
+
+    var containerSize = document.getElementById("jelaContainer").clientHeight;
+    var vrijednost = containerSize / 5;
+    document.getElementById("slika").style.marginTop = vrijednost + "px";
+}
+
+function promjeniSliku(imageName, idName) {
+    //alert(x);
+    var slika = document.getElementById(idName);
+    var url = "url('Resource/image/" + imageName + "')";
+    slika.style.backgroundImage = url;
+}
+
+function ustanoviSliku(){
+    var cont = document.getElementById("jelaContainer");
+    var slika = cont.childNodes[3].childNodes[1].childNodes[1].getAttribute("image");
+    promjeniSliku(slika, "slika");
 }
