@@ -98,7 +98,10 @@ function ajax_post(id, lang){
 
                 if((dataArray[3] != null) && (dataArray[3] != "") && (dataArray[3] != " ") && (dataArray[3] != 0)){
                     var sastojci = document.createElement("p");
-                    sastojci.innerHTML = "Sastojci: " + dataArray[3];
+                    if(lang == "ENG"){
+                        sastojci.innerHTML = "Ingredients: " + dataArray[3];
+                    }else
+                        sastojci.innerHTML = "Sastojci: " + dataArray[3];
                     newDivElement.appendChild(sastojci);
                 }
 
@@ -107,7 +110,10 @@ function ajax_post(id, lang){
                 newDivElement.appendChild(kalorije);
 
                 var cijena = document.createElement("p");
-                cijena.innerHTML = "Cijena: " + dataArray[5] + "kn";
+                if(lang == "ENG"){
+                    cijena.innerHTML = "Price: " + dataArray[5] + "kn";
+                }else
+                    cijena.innerHTML = "Cijena: " + dataArray[5] + "kn";
                 newDivElement.appendChild(cijena);
 
                 //postavljanje dijece na row sa delayem;
