@@ -11,5 +11,10 @@ $user = "root";
 $pw = "";
 $db = "sarmusmoto";
 
-$connection = mysqli_connect($host, $user, $pw, $db) or die("Error in connection");
+$connection = mysqli_connect($host, $user, $pw, $db);
+/*
+if($connection = mysqli_connect_errno()){
+    echo "Sorry došlo je do greške".mysqli_connect_errno();
+    die();
+}*/
 

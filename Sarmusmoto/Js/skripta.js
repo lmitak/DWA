@@ -6,29 +6,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //do work
     ustanoviSliku();
     postaviVisinuSlike();
-    var bro;
+    postaviOznakuTrenutnogTeksta();
+
 });
 
-function detaljnije(naziv){
+
+//postavlja početne vrijednosti za prikaz jela, te poziva AJAX funkciju
+function detaljnije(id, lang){
     document.getElementById("jelaContainer").style.opacity = "0";
     document.getElementById("jelaContainer").style.visibility = "hidden";
     document.getElementById("slika").style.visibility = "hidden";
     document.getElementById("slika").style.opacity = "0";
 
-
-    setTimeout(ajax_post(naziv), 500);
+    setTimeout(ajax_post(id, lang), 500);
 }
 
-
-function ajax_post(naziv){
+//vrši upit prema .php dokumentu koji ga obrađuje, te vraća rezultat koji se odmah obrađuje
+function ajax_post(id, lang){
 // Create our XMLHttpRequest object
     var hr = new XMLHttpRequest();
     // Create some variables we need to send to our PHP file
     var url = "parseData.php";
-    /*var fn = document.getElementById("first_name").value;*/
-    /*var ln = document.getElementById("last_name").value;*/
-    /*var vars = "firstname="+fn+"&lastname="+ln;*/
-    var vars = "jelo=" + naziv;
+
+    var vars = "jelo="+id+"&lang="+lang;;
+
     hr.open("POST", url, true);
     // Set content type header information for sending url encoded variables in the request
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -36,84 +37,102 @@ function ajax_post(naziv){
     hr.onreadystatechange = function() {
         if(hr.readyState == 4 && hr.status == 200)
         {
-            //var return_data = hr.responseText;
-            //document.getElementById("status").innerHTML = "<p>" +return_data+ "</p>";
-            //činimo promjenu
-            //razdvajamo podatke
-            var dataArray = hr.responseText.split("|");
-            //stvaramo container
-            var newDivElement = document.createElement("div");
-            var newImageDiv = document.createElement("div");
-            //sređujemo mu svojstva
-            newDivElement.setAttribute("id", "jelaContainer2");
-            newDivElement.setAttribute("class", "column column-6");
-            newDivElement.style.opacity = "0";
-            newDivElement.style.visibility = "hidden";
-            newImageDiv.setAttribute("id", "slika2");
-            newImageDiv.setAttribute("class", "column column-6");
-            newImageDiv.style.opacity = "0";
-            newImageDiv.style.visibility = "hidden";
+            //provjeravamo da li je došlo do greške
+            if(hr.responseText.indexOf("|") == -1){
+                var newDivElement = document.createElement("div");
+                newDivElement.setAttribute("id", "jelaContainer2");
+                newDivElement.setAttribute("class", "column column-6");
+                newDivElement.style.opacity = "0";
+                newDivElement.style.visibility = "hidden";
 
-            //dodajemo podatke
-            //ovo je back button
-            var button = document.createElement("button");
-            button.setAttribute("type", "button");
-            button.setAttribute("id", "btn");
-            button.setAttribute("onclick", "backFuction()")
-            button.innerHTML = "&lt Natrag";
-            newDivElement.appendChild(button);
+                var opis = document.createElement("p");
+                opis.innerHTML = hr.responseText;
+                newDivElement.appendChild(opis);
+                setTimeout(function () {
+                    var article = document.getElementsByClassName("jela");
+                    var rows = article[0].childNodes[1];
+                    rows.appendChild(newDivElement);
 
-            var naslov = document.createElement("h2");
-            naslov.innerHTML = dataArray[0];
-            newDivElement.appendChild(naslov);
+                    document.getElementById("jelaContainer").style.display = "none";
+                    newDivElement.style.opacity = "1";
+                    newDivElement.style.visibility = "visible";
+                }, 500);
 
-            var kratkiOpis = document.createElement("h3");
-            kratkiOpis.innerHTML = dataArray[1];
-            newDivElement.appendChild(kratkiOpis);
+            }else {
+                //činimo promjenu
+                //razdvajamo podatke
+                var dataArray = hr.responseText.split("|");
+                //stvaramo container
+                var newDivElement = document.createElement("div");
+                var newImageDiv = document.createElement("div");
+                //sređujemo mu svojstva
+                newDivElement.setAttribute("id", "jelaContainer2");
+                newDivElement.setAttribute("class", "column column-6");
+                newDivElement.style.opacity = "0";
+                newDivElement.style.visibility = "hidden";
+                newImageDiv.setAttribute("id", "slika2");
+                newImageDiv.setAttribute("class", "column column-6");
+                newImageDiv.style.opacity = "0";
+                newImageDiv.style.visibility = "hidden";
 
-            var opis = document.createElement("p");
-            opis.innerHTML = dataArray[2];
-            newDivElement.appendChild(opis);
+                //dodajemo podatke
+                //ovo je back button
+                var button = document.createElement("button");
+                button.setAttribute("type", "button");
+                button.setAttribute("id", "btn");
+                button.setAttribute("onclick", "backFuction()")
+                button.innerHTML = "&lt Natrag";
+                newDivElement.appendChild(button);
 
-            if((dataArray[3] != null) && (dataArray[3] != "") && (dataArray[3] != " ") && (dataArray[3] != 0)){
-                var sastojci = document.createElement("p");
-                sastojci.innerHTML = "Sastojci: " + dataArray[3];
-                newDivElement.appendChild(sastojci);
+                var naslov = document.createElement("h2");
+                naslov.innerHTML = dataArray[0];
+                newDivElement.appendChild(naslov);
+
+                var kratkiOpis = document.createElement("h3");
+                kratkiOpis.innerHTML = dataArray[1];
+                newDivElement.appendChild(kratkiOpis);
+
+                var opis = document.createElement("p");
+                opis.innerHTML = dataArray[2];
+                newDivElement.appendChild(opis);
+
+                if((dataArray[3] != null) && (dataArray[3] != "") && (dataArray[3] != " ") && (dataArray[3] != 0)){
+                    var sastojci = document.createElement("p");
+                    sastojci.innerHTML = "Sastojci: " + dataArray[3];
+                    newDivElement.appendChild(sastojci);
+                }
+
+                var kalorije = document.createElement("p");
+                kalorije.innerHTML = "Kcal: " + dataArray[4];
+                newDivElement.appendChild(kalorije);
+
+                var cijena = document.createElement("p");
+                cijena.innerHTML = "Cijena: " + dataArray[5] + "kn";
+                newDivElement.appendChild(cijena);
+
+                //postavljanje dijece na row sa delayem;
+                setTimeout(function () {
+                    var article = document.getElementsByClassName("jela");
+                    var rows = article[0].childNodes[1];
+                    rows.appendChild(newDivElement);
+                    rows.appendChild(newImageDiv);
+                    promjeniSliku(dataArray[6], "slika2");
+                    postaviVisinuSlike();
+
+                    document.getElementById("jelaContainer").style.display = "none";
+                    document.getElementById("slika").style.display = "none";
+                    newDivElement.style.opacity = "1";
+                    newDivElement.style.visibility = "visible";
+                    newImageDiv.style.opacity = "1";
+                    newImageDiv.style.visibility = "visible";
+
+                }, 500);
             }
-
-            var kalorije = document.createElement("p");
-            kalorije.innerHTML = "Kcal: " + dataArray[4];
-            newDivElement.appendChild(kalorije);
-
-            var cijena = document.createElement("p");
-            cijena.innerHTML = "Cijena: " + dataArray[5] + "kn";
-            newDivElement.appendChild(cijena);
-
-            //postavljanje dijece na row sa delayem;
-            setTimeout(function () {
-                var article = document.getElementsByClassName("jela");
-                var rows = article[0].childNodes[1];
-                rows.appendChild(newDivElement);
-                rows.appendChild(newImageDiv);
-                promjeniSliku(dataArray[6], "slika2");
-                postaviVisinuSlike();
-
-                document.getElementById("jelaContainer").style.display = "none";
-                document.getElementById("slika").style.display = "none";
-                newDivElement.style.opacity = "1";
-                newDivElement.style.visibility = "visible";
-                newImageDiv.style.opacity = "1";
-                newImageDiv.style.visibility = "visible";
-
-            }, 500);
-
-
         }
     }
     // Send the data to PHP now... and wait for response to update the status div
     hr.send(vars);
     // Actually execute the request
-    //document.getElementById("status").innerHTML = "processing...";
 }
 
 
@@ -161,8 +180,17 @@ function promjeniSliku(imageName, idName) {
     slika.style.backgroundImage = url;
 }
 
+//gleda koja bi na stranici default slika trebala biti prikazana kod hrane, ovisno o kategoriji jela
 function ustanoviSliku(){
     var cont = document.getElementById("jelaContainer");
     var slika = cont.childNodes[3].childNodes[1].childNodes[1].getAttribute("image");
     promjeniSliku(slika, "slika");
+}
+
+//prikazuje koji jezik je trenutno aktivan
+function postaviOznakuTrenutnogTeksta(){
+    if(document.getElementById("jezik").value == "ENG"){
+        document.getElementById("eng").style.textDecoration = "underline";
+    }else
+        document.getElementById("hrv").style.textDecoration = "underline";
 }

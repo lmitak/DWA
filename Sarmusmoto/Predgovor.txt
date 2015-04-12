@@ -1,7 +1,10 @@
-Ovo je predgovor o statiènom izgledu stranice.
-Dakle ovo je osnovni izgled stranice sa nekim primjerima.
-U sluèaju da smo veæ trebali imati 10 jela drugih 5(koji nisu) prikazani se nalaze u <article> koji nije prikazan.
-Klikom na jedan od linkova navigacije, npr. "Predjela" vode nas na stranicu predjel (koja je trenutno i prikazana). Izabirom nekog drugog linka stranica bi ostala ista samo bi se jela promjenila.
-Hoverom preko jela bih napravio da se slika promjeni u izgled tog jela.
-Klikom na jelo bi se otvorila ista stranica samo umjesto liste te kategorije jelovnika bi bila prikazana slika jela, opis, sastojci, kalorièna vrijednost i gumb za natrag.
-Doduše to je Js koji æe se tek raditi.
+Ovo je predgovor o završenoj stranici-jelovniku za seminar. 
+Stranica koristi PHP, SQL i Javascript.
+Sve je uspješno izvršeno osim hrvatskih znakova.
+Baza, konekcija prema bazi, PHP i html su postavljeni na UTF-8 no i dalje je problem prisutan. 
+iconv() djelomièno radi jer prevodi 'ž' i 'š' no ne i 'è' i 'æ'.
+Korisnik kada uðe na stranicu ona je poèetno zadana na hrvatskom jeziku. U gornjem desnom kutu ima moguænost promjene jezika i oznaèen mu je trenutni.
+Korisnik prvo vidi osnovne informacije restorana, te ispod toga izbornik koji predstavlja kategorije jela. 
+Poèetno zadana kategorija jest "predjela".
+Micanjem po "artiklu" korisniku je prikazana slika tog artikla, te izborom(klikom) artikla korisniku su prikazane detaljnije informacije o artiklu (jelu ili piæu).
+
