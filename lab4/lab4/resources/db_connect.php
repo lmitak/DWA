@@ -5,9 +5,17 @@
  * Date: 2.4.2015.
  * Time: 8:56
  */
-$dbHost = "localhost";
+
+//faks (vagrant)
+/*$dbHost = "localhost";
 $dbUser = "root";
 $dbPass = "123";
+$dbName = "ods_db";
+*/
+//doma
+$dbHost = "localhost";
+$dbUser = "root";
+$dbPass = "";
 $dbName = "ods_db";
 
 $connection = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName);

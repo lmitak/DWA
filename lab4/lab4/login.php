@@ -6,59 +6,29 @@
  * Time: 9:41
  */
     session_start();
-    //$username = "luka";
-    //$password = "123";
-   //  echo "hello";
+
     include_once("resources/db_connect.php");
-    $sql = "SELECT * FROM korisnik WHERE username = '{$_POST['username']}' AND password = '{$_POST['password']}'";
+    $sql = "SELECT * FROM korisnik WHERE us = '{$_POST['username']}' AND pw = '{$_POST['password']}'";
     $res = mysqli_query($connection, $sql);
-    
-    //if ((($username == $_POST['username']) && ($password == $_POST['password'])))
+
     if(mysqli_num_rows($res))
     {
            
         $_SESSION['user'] = $_POST['username'];
         $row = mysqli_fetch_assoc($res);
+        include_once('resources/header.php');
         echo "
-            <html>
-            <head lang='en'>
-                <meta charset='UTF-8'>
-                <link href='css/grid.css' type='text/css' rel='stylesheet'>
-                <link href='css/style.css' type='text/css' rel='stylesheet'>
-                <title>ZKD</title>
-            </head>
-            <body>
-
-                    <header >
-                        <div class=\"row\">
-                        <div class=\"column column-12\">
-                            <img src='resources/slasticeLogoReC.png' width=\"80px\" height=\"130px\">
-                            <aside class=\"column column-4\" id=\"hAs\">
-                                <p>".$row['name']."</p>
-                                <form action=\"logout.php\" method=\"POST\">
-                                <input type=\"submit\"  value=\"Odjava\"/>
-                                </form>
-                            </aside>
-                        </div></div>
-                    </header>
-
-
                     <aside class='row' id='reklama'>
                         <h2>Ovo je neka reklama</h2>
                         <button type='button' id='zatvori_btn' onclick='gasi(this)'>Zatvori</button>
-                    </aside>
+                    </aside>";
 
-                    <div class=\"row\">
-                    <nav class=\"column column-4\">
-                        <ul>
-                            <li><a href='login.php'>Početna</a></li>
-                            <li><a href='lista_proizvoda.php'>Proizvodi</a></li>
-                            <li><a href='dodajProizvod.php'>Dodaj proizvod</a></li>
-                            <li>Izbornik</li>
-                        </ul>
-                    </nav>
 
-                    <article class=\"column column-7\">
+        echo "<div class='row'>";
+        include_once('resources/navigation.php');
+
+
+        echo        "<article class=\"column column-7\">
                         <table id='osobniPodaci'>
                             <tr>
                                 <th>Osobni podaci</th>
