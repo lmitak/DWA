@@ -13,6 +13,8 @@ echo<<<EOF
                 <li><a href='lista_proizvoda.php'>Proizvodi</a></li>
                 <li><a href='dodajProizvod.php'>Dodaj proizvod</a></li>
                 <li><a href="skiniProizvode.php">Cjenik</a></li>
+                <li><a href="gafikon.php">Torta Grafikoni</a></li>
+                <li><a href="ColumnGafikon.php">Stupčasti Grafikoni</a></li>
             </ul>
         </nav>
 EOF;
