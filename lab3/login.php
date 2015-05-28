@@ -6,19 +6,15 @@
  * Time: 9:41
  */
     session_start();
-    //$username = "luka";
-    //$password = "123";
-   //  echo "hello";
-    include_once("resources/db_connect.php");
-    $sql = "SELECT * FROM korisnik WHERE username = '{$_POST['username']}' AND password = '{$_POST['password']}'";
-    $res = mysqli_query($connection, $sql);
-    
-    //if ((($username == $_POST['username']) && ($password == $_POST['password'])))
-    if(mysqli_num_rows($res))
+    $username = "luka";
+    $password = "123";
+
+
+    if ((($username == $_POST['username']) && ($password == $_POST['password'])))
     {
-           
+
         $_SESSION['user'] = $_POST['username'];
-        $row = mysqli_fetch_assoc($res);
+
         echo "
             <html>
             <head lang='en'>
@@ -34,7 +30,7 @@
                         <div class=\"column column-12\">
                             <img src='resources/slasticeLogoReC.png' width=\"80px\" height=\"130px\">
                             <aside class=\"column column-4\" id=\"hAs\">
-                                <p>".$row['name']."</p>
+                                <p>".$_SESSION['user']."</p>
                                 <form action=\"logout.php\" method=\"POST\">
                                 <input type=\"submit\"  value=\"Odjava\"/>
                                 </form>
@@ -128,5 +124,3 @@
     } else{
         header('Location: login.html');
     }
-
-?>

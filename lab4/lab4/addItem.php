@@ -24,8 +24,8 @@ switch($_GET['a']){
             echo "Ups, došlo je do pogreške, fafaj ga!";
         }else{
             $sql = "INSERT INTO sheet1(NazivProizvoda, TipProizvoda, OpisProizvoda, Vegetarijanski, Halal, Košer, Alergeni, Cijena)
-        VALUES(".$_POST['naziv'].", ".$_POST['tip'].", ".$_POST['opis'].", ".$_POST['vege'].",
-        ".$_POST['halal'].", ".$_POST['koser'].", ".$_POST['alergeni'].", ".$_POST['cijena'].");";
+        VALUES('{$_POST['naziv']}', '{$_POST['tip']}', '{$_POST['opis']}', '{$_POST['vege']}', '{$_POST['halal']}',
+        '{$_POST['koser']}', '{$_POST['alergeni']}', {$_POST['cijena']})";
 
             $res = mysqli_query($connection, $sql);
 

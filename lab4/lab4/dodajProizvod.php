@@ -22,11 +22,11 @@ echo "
                         <label for='naziv'>Naziv proizvoda</label>
                         <input type='text' name='naziv' id='naziv'/><br/>
                         <label for='tip'>Tip proizvoda</label>
-                        <select id='tip'>";
+                        <select id='tip' name='tip'>";
 $sql = "SELECT TipoviDelicija from tipovi_podataka";
 $res = mysqli_query($connection, $sql);
 while($row = mysqli_fetch_assoc($res)){
-    echo "<option value='".$row['TipoviDelicija']."'>".$row['TipoviDelicija']."</option>";
+    echo "<option value='".$row['tip_id']."'>".$row['TipoviDelicija']."</option>";
 }
 
 
@@ -47,12 +47,12 @@ echo                     "</select><br/>
                          <input type='radio' name='koser' id='koser' value='Ne'/>
                          <br/>
                          <label for='alergeni'>Alergeni: </label>
-                         <select id='alergeni'>";
+                         <select id='alergeni' name='alergeni'>";
 
 $sql = "SELECT naziv from alergeni";
 $res = mysqli_query($connection, $sql);
 while($row = mysqli_fetch_assoc($res)){
-    echo "<option value='".$row['naziv']."'>".$row['naziv']."</option>";
+    echo "<option value='".$row['id']."'>".$row['naziv']."</option>";
 }
 
 echo <<<EOF
