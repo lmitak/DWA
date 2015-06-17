@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='../css/grid.css' type='text/css' rel='stylesheet'>
+    <link href='../css/style.css' type='text/css' rel='stylesheet'>
+    <title>ZKD</title>
+</head>
+<body>
+
+    <header >
+        <div class="row">
+            <div class="column column-12">
+                <img src='../resources/slasticeLogoReC.png' width="80px" height="130px">
+                <aside class="column column-4" id="hAs">
+                    <p>{{ user }}</p>
+                    <form action="logout" method="POST">
+                        <input type="submit"  value="Odjava"/>
+                    </form>
+                </aside>
+            </div>
+        </div>
+    </header>
+
+    <div class="row">
+        <nav class="column column-4">
+            <ul>
+                <li><a href='../login.php'>Početna</a></li>
+                <li><a href='../lista_proizvoda.php'>Proizvodi</a></li>
+                <li><a href='../dodajProizvod.php'>Dodaj proizvod</a></li>
+                <li><a href="../skiniProizvode.php">Cjenik</a></li>
+                <li><a href="../vjezba4/grafikon.php">Torta Grafikoni</a></li>
+                <li><a href="../vjezba4/ColumnGrafikon.php">Stupčasti Grafikoni</a></li>
+                <li><a href="../gleProizvode.php">Gle proizvode</a></li>
+                <li><a href="../vjezba5/zatraziJSON.php">JSON proizvodi</a></li>
+                <li><a href="../dodajProizvod6.php">Odi na vjezbu 6</a></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            {% block content  %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="row">
+            <div class="column column-12">
+                <p>Copyright ZKD, 2014.</p>
+            </div>
+        </div>
+    </footer>
+<script src="../js/jquery.js"></script>
+<script type='text/javascript' src='../js/script.js'></script>
+<script type="text/javascript" src="../js/jquery_code.js"></script>
+</body>
+</html>

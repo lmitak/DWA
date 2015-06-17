@@ -1,0 +1,93 @@
+
+
+#login_form input
+{
+    width: 100%;
+}
+
+#container
+{
+    margin-top: 50px;
+}
+
+#hAs
+{
+    float: right;
+    color: white;
+    margin-top: 25px;
+}
+header aside p
+{
+    float:left;
+    line-height: 20px;
+}
+table{
+    transition: 1500ms;
+    visibility: visible;
+    opacity: 1;
+}
+th
+{
+    text-align: left;
+}
+
+footer
+{
+    background-color: #14786D;
+    clear: both;
+}
+body
+{
+    background-color: white;
+}
+header
+{
+    background-color: #7A0A12;
+}
+header input[type="submit"]
+{
+    background-color: white;
+    color: #7A0A12;
+    border: 0px;
+    line-height: 20px;
+}
+header input[type="submit"]:active
+{
+    background-color: #7A0A12;
+    color: white;
+    border: 2px solid white;
+}
+
+
+#filter
+{
+    width:40%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#reklama{
+    background-color: aqua;
+    width: 500px;
+    height: 100px;
+    float: left;
+    position: fixed;
+    left:40%;
+}
+
+#uListPaging{
+    padding: 0;
+}
+#uListPaging li{
+    display: inline-block;
+}
+#mobileFooter{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#mobileFooter button{
+    width:45%;
+}
