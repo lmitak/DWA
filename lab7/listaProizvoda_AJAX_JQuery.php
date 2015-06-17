@@ -19,9 +19,9 @@ $res = mysqli_query($connection, $query);
 
 
 echo" <article class=\"column column-10\">
-                        <input type='text' name='filter' id='filter' placeholder='Pretraži'/>
-                        <input type='submit' value='Pretraži' onclick='ajax_upit()'>
-                        <table id='popis'>";
+                        <input type='text' name='filterJQ' id='filterJQ' placeholder='Pretraži'/>
+                        <input type='submit' value='Pretraži' id='submit'>
+                        <table id='popisJQ'>";
 
 while($row = mysqli_fetch_assoc($res)){
     echo "<tr>

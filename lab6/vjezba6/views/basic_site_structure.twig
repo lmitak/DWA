@@ -15,8 +15,8 @@
             <div class="column column-12">
                 <img src='../resources/slasticeLogoReC.png' width="80px" height="130px">
                 <aside class="column column-4" id="hAs">
-                    <p>".$_SESSION['user']."</p>
-                    <form action="logout.php" method="POST">
+                    <p>{{ user }}</p>
+                    <form action="logout" method="POST">
                         <input type="submit"  value="Odjava"/>
                     </form>
                 </aside>
@@ -27,14 +27,14 @@
     <div class="row">
         <nav class="column column-4">
             <ul>
-                <li><a href='../../login.php'>Početna</a></li>
-                <li><a href='../../lista_proizvoda.php'>Proizvodi</a></li>
-                <li><a href='../../dodajProizvod.php'>Dodaj proizvod</a></li>
-                <li><a href="../../skiniProizvode.php">Cjenik</a></li>
-                <li><a href="../../vjezba4/grafikon.php">Torta Grafikoni</a></li>
-                <li><a href="../../vjezba4/ColumnGrafikon.php">Stupčasti Grafikoni</a></li>
-                <li><a href="../../gleProizvode.php">Gle proizvode</a></li>
-                <li><a href="../../vjezba5/zatraziJSON.php">JSON proizvodi</a></li>
+                <li><a href='../login.php'>Početna</a></li>
+                <li><a href='../lista_proizvoda.php'>Proizvodi</a></li>
+                <li><a href='../dodajProizvod.php'>Dodaj proizvod</a></li>
+                <li><a href="../skiniProizvode.php">Cjenik</a></li>
+                <li><a href="../vjezba4/grafikon.php">Torta Grafikoni</a></li>
+                <li><a href="../vjezba4/ColumnGrafikon.php">Stupčasti Grafikoni</a></li>
+                <li><a href="../gleProizvode.php">Gle proizvode</a></li>
+                <li><a href="../vjezba5/zatraziJSON.php">JSON proizvodi</a></li>
                 <li><a href="../dodajProizvod6.php">Odi na vjezbu 6</a></li>
             </ul>
         </nav>
@@ -54,6 +54,8 @@
             </div>
         </div>
     </footer>
-<script type='text/javascript' src='../../js/script.js'></script>
+<script src="../js/jquery.js"></script>
+<script type='text/javascript' src='../js/script.js'></script>
+<script type="text/javascript" src="../js/jquery_code.js"></script>
 </body>
 </html>

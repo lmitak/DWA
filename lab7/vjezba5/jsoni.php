@@ -62,83 +62,24 @@ if(!isset($_GET['br'])){
 
 $result = json_decode($data);
 
-include_once("resources/header.php");
+include_once("../resources/header.php");
 
 
 echo "<div class='row'>";
-echo "<div id='proizvod'";
+echo "<div id='proizvod_json'>";
 echo "<script>
     data = {$data};
-
-    var proizvod = document.getElementById(\"proizvod\");
-
-    var tablica = document.createElement(\"table\");
-    proizvod.appendChild(tablica);
-    //naziv
-    var redakNaziv = document.createElement(\"tr\");
-    tablica.appendChild(redakNaziv);
-
-    var titleNaziv = document.createElement(\"td\");
-    titleNaziv.innerHTML = \"Naziv: \";
-    redakNaziv.appendChild(titleNaziv);
-    var valueNaziv = document.createElement(\"td\");
-    valueNaziv.innerHTML = data[i][\"NazivProizvoda\"];
-    redakNaziv.appendChild(valueNaziv);
-    //opis
-    var redakOpis = document.createElement(\"tr\");
-    tablica.appendChild(redakOpis);
-
-    var titleOpis = document.createElement(\"td\");
-    titleOpis.innerHTML = \"Opis: \";
-    redakOpis.appendChild(titleOpis);
-    var valueOpis = document.createElement(\"td\");
-    valueOpis.innerHTML = data[i][\"OpisProizvoda\"];
-    redakOpis.appendChild(valueOpis);
-    //tip
-    var redakTip = document.createElement(\"tr\");
-    tablica.appendChild(redakTip);
-
-    var titleTip = document.createElement(\"td\");
-    titleTip.innerHTML = \"Tip: \";
-    redakTip.appendChild(titleTip);
-    var valueTip = document.createElement(\"td\");
-    valueTip.innerHTML = data[i][\"TipoviDelicija\"];
-    redakTip.appendChild(valueTip);
-    //cijena
-    var redakCijena = document.createElement(\"tr\");
-    tablica.appendChild(redakCijena);
-
-    var titleCijena = document.createElement(\"td\");
-    titleCijena.innerHTML = \"Cijena: \";
-    redakCijena.appendChild(titleCijena);
-    var valueCijena = document.createElement(\"td\");
-    valueCijena.innerHTML = data[i][\"Cijena\"] + \" kn\";
-    redakCijena.appendChild(valueCijena);
-
-    var buttonDalje = document.createElement(\"button\");
-    buttonDalje.innerHTML = \"NAPRIJED\";
-    buttonDalje.setAttribute(\"onclick\", \"povecaj()\");
-    buttonDalje.setAttribute(\"type\", \"button\");
-    buttonDalje.setAttribute(\"id\", \"btnNext\");
-
-    buttonDalje.onclick = function(){
-        i++;
-    };
-    proizvod.appendChild(buttonDalje);
-
-    var buttonPrije = document.createElement(\"button\");
-    buttonPrije.setAttribute(\"onclick\", i--);
-    buttonPrije.innerHTML = \"NATRAG\";
-    buttonDalje.onclick = function(){
-        i--;
-    };
-    proizvod.appendChild(buttonPrije);
-
 
 
 </script>
 ";
-echo "</div></div>";
+echo "</div>";
+echo <<<EOF
+<button type="button" onclick="prosli()">Prosli</button>
+<button type="button" onclick="sljedeci()">Sljedeci</button>
+EOF;
 
-include_once("resources/bootie.php");
+echo "</div>";
+
+include_once("../resources/bootie.php");
 

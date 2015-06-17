@@ -1,6 +1,6 @@
 <?php
 
-require_once("resources/db_connect.php");
+require_once("../resources/db_connect.php");
 
 $sql = "SELECT COUNT(*) FROM tipovi_podataka";
 $res = mysqli_query($connection, $sql);

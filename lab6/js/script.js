@@ -7,11 +7,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //do work
     var displayed = true;
     var tableHeaders = document.getElementsByTagName("th");
-
-
     //izvrti funkciju i daje onclicked
     for(var i = 0; i < tableHeaders.length; i++){
         togglaj(tableHeaders[i]);
+    }
+
+    if(document.getElementById('proizvod_json')){
+        console.log(data);
+        br = 0;
+        showItem(br);
     }
 
 });
@@ -71,71 +75,43 @@ function gasi(gumb){
 
 
 
-function obavi5zadatak(data, i) {
-    var proizvod = document.getElementById("proizvod");
+function showItem(br){
+    var contianer = document.getElementById('proizvod_json');
 
-    var tablica = document.createElement("table");
-    proizvod.appendChild(tablica);
-    //naziv
-    var redakNaziv = document.createElement("tr");
-    tablica.appendChild(redakNaziv);
+    while(contianer.firstChild){
+        contianer.removeChild(contianer.firstChild);
+    }
 
-    var titleNaziv = document.createElement("td");
-    titleNaziv.innerHTML = "Naziv: ";
-    redakNaziv.appendChild(titleNaziv);
-    var valueNaziv = document.createElement("td");
-    valueNaziv.innerHTML = data[i]['NazivProizvoda'];
-    redakNaziv.appendChild(valueNaziv);
-    //opis
-    var redakOpis = document.createElement("tr");
-    tablica.appendChild(redakOpis);
+    var naziv = document.createElement("p");
+    naziv.innerHTML = "Naziv: " + data[br][0];
+    contianer.appendChild(naziv);
 
-    var titleOpis = document.createElement("td");
-    titleOpis.innerHTML = "Opis: ";
-    redakOpis.appendChild(titleOpis);
-    var valueOpis = document.createElement("td");
-    valueOpis.innerHTML = data[i]['OpisProizvoda'];
-    redakOpis.appendChild(valueOpis);
-    //tip
-    var redakTip = document.createElement("tr");
-    tablica.appendChild(redakTip);
+    var tip = document.createElement("p");
+    tip.innerHTML = "Tip: " + data[br][9];
+    contianer.appendChild(tip);
 
-    var titleTip = document.createElement("td");
-    titleTip.innerHTML = "Tip: ";
-    redakTip.appendChild(titleTip);
-    var valueTip = document.createElement("td");
-    valueTip.innerHTML = data[i]['TipoviDelicija'];
-    redakTip.appendChild(valueTip);
-    //cijena
-    var redakCijena = document.createElement("tr");
-    tablica.appendChild(redakCijena);
+    var opis = document.createElement("p");
+    opis.innerHTML = "Opis: " + data[br][2];
+    contianer.appendChild(opis);
 
-    var titleCijena = document.createElement("td");
-    titleCijena.innerHTML = "Cijena: ";
-    redakCijena.appendChild(titleCijena);
-    var valueCijena = document.createElement("td");
-    valueCijena.innerHTML = data[i]['Cijena'] + " kn";
-    redakCijena.appendChild(valueCijena);
+    var cijena = document.createElement("p");
+    cijena.innerHTML = "Cijena: " + data[br][7] + "kn";
+    contianer.appendChild(cijena);
 
-    var buttonDalje = document.createElement("button");
-    buttonDalje.innerHTML = "NAPRIJED";
-    buttonDalje.setAttribute("onclick", "povecaj()");
-    buttonDalje.setAttribute("type", "button");
-    buttonDalje.setAttribute("id", "btnNext");
-
-    buttonDalje.onclick = function(){
-        i++;
-    };
-    proizvod.appendChild(buttonDalje);
-
-    var buttonPrije = document.createElement("button");
-    buttonPrije.setAttribute("onclick", i--);
-    buttonPrije.innerHTML = "NATRAG";
-    proizvod.appendChild(buttonPrije);
 }
 
-function povecaj(){
-    alert("ole");
-    //i++;
-    //obavi5zadatak(data, i);
+function prosli(){
+    if(br-1 >= 0){
+        br--;
+        showItem(br);
+    }
+
+}
+
+function sljedeci(){
+    if(br+1 < data.length){
+        br++;
+        showItem(br);
+    }
+
 }

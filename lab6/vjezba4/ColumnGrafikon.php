@@ -5,7 +5,7 @@
  * Date: 6.5.2015.
  * Time: 20:51
  */
-require_once("resources/db_connect.php");
+require_once("../resources/db_connect.php");
 
 $sql = "SELECT TipoviDelicija FROM tipovi_podataka";
 $res = mysqli_query($connection, $sql);

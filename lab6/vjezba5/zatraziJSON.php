@@ -6,8 +6,8 @@
  * Time: 21:08
  */
 session_start();
-include_once("resources/header.php");
-include_once("resources/navigation.php");
+include_once("../resources/header.php");
+include_once("../resources/navigation.php");
 ?>
 
 <div class="column column-8">
@@ -20,4 +20,4 @@ include_once("resources/navigation.php");
     <p>Za pretragu svih proizvoda pošaljite prazan upitnik.</p>
 </div>
 <?php
-include_once("resources/bootie.php");
+include_once("../resources/bootie.php");

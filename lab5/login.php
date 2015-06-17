@@ -7,8 +7,11 @@
  */
     session_start();
 
+    //$password = $_POST['password'];
+    //$password = md5($password);
     include_once("resources/db_connect.php");
     $sql = "SELECT * FROM korisnik WHERE us = '{$_POST['username']}' AND pw = '{$_POST['password']}'";
+    //$sql = "SELECT * FROM korisnik WHERE us = '{$_POST['username']}' AND pw = '$password'";
     $res = mysqli_query($connection, $sql);
 
     if(mysqli_num_rows($res))

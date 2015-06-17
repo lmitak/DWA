@@ -17,9 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 try{
     $app = new Silex\Application();
 
-    $app->get('/hello/{name}', function($name) use ($app){
-        return 'Hello ' . $app->escape($name);
-    });
 
     $app['debug'] = true;
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
@@ -28,6 +25,7 @@ try{
 
     $app->register(new FranMoreno\Silex\Provider\ParisServiceProvider());
     $app->register(new Silex\Provider\SessionServiceProvider());
+
     // Funkcija koja provjerava u sesiji radi li se o ulogiranom korisniku.
     // Ova funkcija se poziva kao "before" funkcija prije glavne funkcije rute
     // te se izvršava prije glavne funkcije rute. Ako netko nije ulogiran,
@@ -39,14 +37,9 @@ try{
         if($request->hasPreviousSession() && $request->getSession()->has('user')){
             return;
         }
-        return $app->redirect('../login.html');
+        return $app->redirect('login');
     };
 
-    // GET ruta za login
-    // prikazi login ekran
-    $app->get('/login',  function () use ($app) {
-        return "login.html";
-    });
 
     //GET ruta za formu
     $app->get('/dodajProizvod', function () use ($app){
@@ -61,8 +54,8 @@ try{
             ->select('tipovi_podataka.*')
             ->find_array();
         return $app['twig']->render('addForm.twig',
-            array("alergeni"=>$alergeni, "tipovi"=>$tipovi, 'basicDir'=>''));
-    })/*->before($authorize)*/;
+            array("alergeni"=>$alergeni, "tipovi"=>$tipovi, 'user' => $app['session']->get('user')['name']));
+    })->before($authorize);
 
     $app->get('/addItem/{number}', function(Request $request, $number) use ($app){
         include_once('logic/idiormUse.php');
@@ -94,8 +87,44 @@ try{
         }
         $app->redirect('dodajProizvod');
 
+    })->before($authorize);;
+
+    $app->get('/sviProizvodi', function() use ($app){
+        include_once('logic/idiormUse.php');
+        $proizvodi = ORM::for_table('sheet1')->find_many();
+
+        return $app['twig']->render('svi_proizvodi.twig',
+            array("proizvodi" => $proizvodi, 'user' => $app['session']->get('user')['name']));
+    })->before($authorize);;
+
+
+    $app->get('/login', function() use ($app){
+        return $app['twig']->render('login_form.twig');
     });
-	
+
+    $app->post('/login', function(Request $request) use ($app){
+        include_once('logic/idiormUse.php');
+        $parameters = $request->request->all();
+        if($korisnik = ORM::for_table("korisnik")
+            ->where(array("pw" => md5($parameters['password']), "us" => $parameters['username']))
+            ->find_one()){
+            $app['session']->set("user", array('username' => $parameters['username'], "name" => $korisnik->get("name")));
+
+            return $app->redirect('index');
+        }else{
+            return $app->redirect('login');
+        }
+
+    });
+
+    $app->get('/index', function() use ($app){
+        return $app['twig']->render('index.twig', array('user' => $app['session']->get('user')['name']));
+    });
+
+    $app->post('/logout', function() use ($app){
+        $app['session']->remove('user');
+        return $app->redirect('login');
+    })->before($authorize);
 
 $app->run();
 

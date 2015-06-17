@@ -1,0 +1,22 @@
+{% extends 'basic_site_structure.twig' %}
+{% block content %}
+
+    <article class="column column-8">
+        <input type='text' name='filter2' id='filter2' placeholder='Pretraži'/>
+        <table id='popis_jq'>
+            {% for proizvod in proizvodi %}
+                <tr>
+                    <td>{{ proizvod.NazivProizvoda }}</td>
+                    <td>{{ proizvod.OpisProizvoda }}</td>
+                    <td>{{ proizvod.Vegetarijanski }}</td>
+                    <td>{{ proizvod.Halal }}</td>
+                    <td>{{ proizvod.Košer }}</td>
+                    <td>{{ proizvod.Alergeni }}</td>
+                    <td>{{ proizvod.Cijena }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </article>
+
+{% endblock %}

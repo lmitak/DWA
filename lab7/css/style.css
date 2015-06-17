@@ -74,3 +74,10 @@ header input[type="submit"]:active
     position: fixed;
     left:40%;
 }
+
+#uListPaging{
+    padding: 0;
+}
+#uListPaging li{
+    display: inline-block;
+}
